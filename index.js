@@ -29,23 +29,28 @@ App.get('/signup', (req, res) => {
 
 
 })
-App.get('/about',(req,res)=>{
+App.get('/about', (req, res) => {
     res.send("Hello from about")
-    
 
 
-    
+
+
 })
 
 //post routes
 
-App.post('/signup',async(req,res)=>{
-
-    let user=new User(req.body)
-   let result=await user.save()
+App.post('/signup', async (req, res) => {
+    try{
+        let user = new User(req.body)
+        let result = await user.save()
+        // res.send("api is running")
+        res.send(result)
+        // console.log(req.body)
+    }catch(e){
+        console.log(e)
+    }
+    // res.send(req.body)
     // res.send("api is running")
-    res.send(result)
-    // console.log(req.body)
 })
 
 
