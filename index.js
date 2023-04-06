@@ -47,7 +47,7 @@ App.post('/signup', async (req, res) => {
         res.send(result)
         // console.log(req.body)
     }catch(e){
-        console.log(e)
+        res.send(e)
     }
     // res.send(req.body)
     // res.send("api is running")
