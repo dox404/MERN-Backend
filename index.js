@@ -24,6 +24,9 @@ App.get('/login', (req, res) => {
 
 
 })
+App.get('/join', async (req, res) => {
+    res.send("hello")
+})
 App.get('/signup', (req, res) => {
     res.send("Hello from signup")
 
@@ -40,19 +43,33 @@ App.get('/about', (req, res) => {
 //post routes
 
 App.post('/signup', async (req, res) => {
-    try{
+    try {
         let user = new User(req.body)
         let result = await user.save()
-        // res.send("api is running")
         res.send(result)
-        // console.log(req.body)
-    }catch(e){
+        
+    } catch (e) {
         res.send(e)
     }
-    // res.send(req.body)
-    // res.send("api is running")
+    
 })
 
+
+// App.post('/join', (req, res) => {
+//     const user = req.body
+//     const length = Object.keys(user).length
+//     if (length == 3) {
+//         console.log("signup post route runnig")
+//         return res.send("this is signup route")
+//     }
+//     if (length == 2) {
+//         console.log("login post route runnig")
+//         res.send("this is login route")
+//     }
+
+
+
+// })
 
 
 
