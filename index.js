@@ -1,6 +1,7 @@
 const express = require('express');
 require('./db/config')
 const User = require('./db/User')
+const bcrypt = require('bcrypt')
 
 const cors = require('cors')
 
@@ -44,9 +45,17 @@ App.get('/about', (req, res) => {
 
 App.post('/signup', async (req, res) => {
     try {
-        let user = new User(req.body)
-        let result = await user.save()
-        res.send(result)
+        
+        const data=req.body
+        const HashPwd=await bcrypt.hash(data.password,10)
+        debugger
+        let newUser = new User({
+            name:data.name,
+            email:data.email,
+            password:HashPwd
+        })
+        newUser.save()
+        res.status(200).send("User Registered Successfull")
         
     } catch (e) {
         res.send(e)
