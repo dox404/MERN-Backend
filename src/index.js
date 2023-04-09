@@ -71,10 +71,10 @@ App.post('/login',async(req,res)=>{
         //GETTING THE FULL DETAILS OF THE USER USING THE EMAIL
         const user = await User.findOne({ email: email })
         if (bcrypt.compareSync(password, user.password)) {
-            console.log("done")
+            const token = await user.generateAuthToken()
             res.send(user)
-        } else {
-            res.send('passwords are not matching')
+        } else{
+            res.status(400).send('passwords are not matching')
         }
     } catch (error) {
         res.status(400).send("user is not registersed")
