@@ -72,6 +72,13 @@ App.post('/login',async(req,res)=>{
         const user = await User.findOne({ email: email })
         if (bcrypt.compareSync(password, user.password)) {
             const token = await user.generateAuthToken()
+            res.cookie("jwt", token, {
+
+                httpOnly: true,
+
+                expires: new Date(Date.now() + 3600000)
+            })
+            // console.log(user)
             res.send(user)
         } else{
             res.status(400).send('passwords are not matching')
