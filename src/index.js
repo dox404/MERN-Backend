@@ -4,6 +4,7 @@ const User = require('./models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
+const CookieParser=require('cookie-parser')
 
 
 const App = express();
@@ -14,6 +15,7 @@ const PORT = 5000
 App.use(express.json())
 App.use(cors())
 App.use(express.urlencoded({ extended: false }))
+App.use(CookieParser())
 
 // get routes
 App.get('/', (req, res) => {
@@ -78,14 +80,17 @@ App.post('/login',async(req,res)=>{
 
                 expires: new Date(Date.now() + 3600000)
             })
+            
             // console.log(user)
             res.send(user)
+            // console.log('this is from backend',localStorage.getItem('user'))
+            console.log(user)
         } else{
-            res.status(400).send('passwords are not matching')
+            res.status(400).send('Invalid Password')
         }
     } catch (error) {
         res.status(400).send("user is not registersed")
-        console.log(error)
+        console.log("not registered")
     }
 })
 
