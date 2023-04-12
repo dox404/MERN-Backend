@@ -18,7 +18,7 @@ userSchema.methods.generateAuthToken=async function(){
     try {
         // console.log(this._id)
         let token=jwt.sign({_id:this._id},"MYNAMEISMUKTARULHOQUE",{
-            expiresIn: '10s'
+            expiresIn:15
         })
         // console.log(token)
 
